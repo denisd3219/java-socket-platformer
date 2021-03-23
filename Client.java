@@ -21,7 +21,7 @@ public class Client{
 	ObjectOutputStream inputOut;
 	ObjectInputStream gameDataIn;
 		
-    String serverAddress;
+	String serverAddress;
 	int serverPort;
 	
 	ArrayList<CRec> recsToRender;
@@ -31,11 +31,11 @@ public class Client{
 	int cwidth = 400;
 	int cheight = 300;
 
-    public Client(String serverAddress, int serverPort)
+	public Client(String serverAddress, int serverPort)
 	{
-        this.serverAddress = serverAddress;
+		this.serverAddress = serverAddress;
 		this.serverPort = serverPort;
-    }
+	}
 	
 	public class GameCanvas extends JFrame implements KeyListener
 	{
@@ -86,18 +86,18 @@ public class Client{
 		
 	}
 	
-    private void run()
+	private void run()
 	{
-        try 
+		try 
 		{
 			inputs = new PlayerInputs();
 			gc = new GameCanvas();
 		
-            Socket socket = new Socket(serverAddress, serverPort);
+			Socket socket = new Socket(serverAddress, serverPort);
 			inputOut = new ObjectOutputStream(socket.getOutputStream());
-            gameDataIn = new ObjectInputStream(socket.getInputStream());
+			gameDataIn = new ObjectInputStream(socket.getInputStream());
 						
-            while (true)
+			while (true)
 			{
 				inputOut.reset();
 				inputOut.writeObject(inputs);
@@ -114,20 +114,20 @@ public class Client{
 					if(crec == null){continue;}
 					g.fillOval(crec.x + cwidth/2, crec.y + cheight/2, crec.w, crec.h); 
 				}
-            }
-        } 
+			}
+		} 
 		catch(Exception e){e.printStackTrace();}
-    }
+	}
 
-    public static void main(String[] args)
+	public static void main(String[] args)
 	{
-        if (args.length != 2) 
+		if (args.length != 2) 
 		{
-            System.err.println("Wrong args, specify an address and a port");
-            return;
-        }
+			System.err.println("Wrong args, specify an address and a port");
+			return;
+		}
 
-        Client client = new Client(args[0], Integer.parseInt(args[1]));
-        client.run();
-    }
+		Client client = new Client(args[0], Integer.parseInt(args[1]));
+		client.run();
+	}
 }

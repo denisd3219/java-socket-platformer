@@ -16,19 +16,19 @@ public class ClientThread implements Runnable
 
 		ClientThread(Socket socket) 
 		{
-            this.socket = socket;
+			this.socket = socket;
 			inputs = new PlayerInputs();
-        }
+		}
 		
 		@Override
-        public void run() 
+		public void run() 
 		{
 			System.out.println("Connected: " + socket);
-            try 
+			try 
 			{
 				setup();
 				processIO();
-            } 
+			} 
 			catch(Exception e){e.printStackTrace();} 
 			finally 
 			{
@@ -38,8 +38,8 @@ public class ClientThread implements Runnable
 					socket.close();
 				}
 				catch(Exception e){e.printStackTrace();} 
-            }
-        }
+			}
+		}
 		
 		private void setup() throws IOException
 		{

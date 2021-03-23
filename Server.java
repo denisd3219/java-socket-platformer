@@ -12,23 +12,23 @@ public class Server
 	{
 		if(args.length != 1) 
 		{
-            System.err.println("Wrong args, specify a port");
-            return;
-        }
+			System.err.println("Wrong args, specify a port");
+			return;
+		}
 		
 		GameThread game = new GameThread();
 		Thread gt = new Thread(game);
 		gt.start();
 		
-        try(ServerSocket listener = new ServerSocket(Integer.parseInt(args[0]))) 
+		try(ServerSocket listener = new ServerSocket(Integer.parseInt(args[0]))) 
 		{
-            System.out.println("Listening on " + args[0]);
-            ExecutorService pool = Executors.newFixedThreadPool(10);
-            while(true) 
+			System.out.println("Listening on " + args[0]);
+			ExecutorService pool = Executors.newFixedThreadPool(10);
+			while(true) 
 			{
-                pool.execute(game.connectClient(listener.accept()));
-            }
-        }
+				pool.execute(game.connectClient(listener.accept()));
+			}
+		}
 		catch(Exception e){e.printStackTrace();}
-    }
+	}
 } 
