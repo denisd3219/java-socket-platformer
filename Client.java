@@ -112,7 +112,7 @@ public class Client{
 				for(CRec crec : recsToRender)
 				{
 					if(crec == null){continue;}
-					g.fillOval(crec.x + cwidth/2, crec.y + cheight/2, crec.w, crec.h); 
+					g.fillOval(crec.x + cwidth/2, cheight/2 - crec.y, crec.w, crec.h); 
 				}
 			}
 		} 
