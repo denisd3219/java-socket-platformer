@@ -20,7 +20,6 @@ public class ClientThread implements Runnable
 			inputs = new PlayerInputs();
 		}
 		
-		@Override
 		public void run() 
 		{
 			System.out.println("Connected: " + socket);

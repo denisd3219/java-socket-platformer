@@ -20,7 +20,6 @@ public class GameThread implements Runnable
 	final long UPS = 1000000000 / TARGET_UPS;
 	long lastLoopTime = System.nanoTime();
 	
-	@Override
 	public void run()
 	{
 		System.out.println("Game thread running");
