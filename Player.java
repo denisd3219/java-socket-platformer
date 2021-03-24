@@ -15,8 +15,8 @@ public class Player implements GameObject
 	public Vec2<Float> vel;
 	
 	float walkSpeed = 10f;
-	float jumpPower = 80f;
-	float gravity = 0.1f;
+	float jumpPower = 30f;
+	float gravity = 0.01f;
 	
 	public ClientThread playerClient;
 	public ArrayList<GameObject> otherObjectsRef;
@@ -64,7 +64,7 @@ public class Player implements GameObject
 				{
 					Vec2<Float> otherPos = p.getPos();
 					Vec2<Float> otherBounds = p.getBounds();
-					if(pos.y < otherPos.y + otherBounds.y) {
+					if(pos.y >= otherPos.y + otherBounds.y) {
 						minDistanceToPlatform = Math.min(minDistanceToPlatform, pos.y - (otherPos.y + otherBounds.y));
 					}
 				}
@@ -79,9 +79,9 @@ public class Player implements GameObject
 
 			vel.x = walkSpeed * walkMod;
 				
-			if(minDistanceToPlatform == 0f)
+			if(minDistanceToPlatform < 1f)
 			{
-				vel.y += jumpPower * (in.up ? 1f : 0f);
+				vel.y = jumpPower * (in.up ? 1f : 0f);
 			}				
 		}
 			
