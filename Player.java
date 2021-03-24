@@ -52,14 +52,12 @@ public class Player implements GameObject
 	{
 		if(otherObjectsRef == null){return;}
 
-		float minDistanceToPlatform = 0f;
+		float minDistanceToPlatform = 9999f;
 
 		List<GameObject> platforms = new PlatformFilter().filter(otherObjectsRef);
 
 		if(platforms.size() != 0)
 		{
-			GameObject first = platforms.get(0);
-			minDistanceToPlatform = pos.y - (first.getBounds().y + first.getPos().y);
 			for(GameObject p : platforms)
 			{
 				if(checkHorizontalCollision(p))
