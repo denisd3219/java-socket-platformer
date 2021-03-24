@@ -47,7 +47,8 @@ public class Player implements GameObject
 	
 	public void update(double dt)
 	{
-		float minDistanceToDense = 9999;
+		float minDistanceToDense = 9999f;
+
 		if(otherObjectsRef == null){return;}
 		
 		for(GameObject o : otherObjectsRef)
