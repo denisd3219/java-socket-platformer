@@ -71,17 +71,39 @@ public class Client{
 		public void keyPressed(KeyEvent e) 
 		{
 			if(!e.isActionKey()) {return;}
-			if(e.getKeyCode() == 37) {inputs.left = true;}
-			else if(e.getKeyCode() == 38) {inputs.up = true;}
-			else if(e.getKeyCode() == 39) {inputs.right = true;}
+			switch(e.getKeyCode()) 
+			{ 
+				case KeyEvent.VK_UP:
+					inputs.up = true;
+					break;
+				case KeyEvent.VK_DOWN: 
+					break;
+				case KeyEvent.VK_LEFT:
+					inputs.left = true;
+					break;
+				case KeyEvent.VK_RIGHT :
+					inputs.right = true;
+					break;
+			}
 		}
 
 		public void keyReleased(KeyEvent e) 
 		{
 			if(!e.isActionKey()){return;}
-			if(e.getKeyCode() == 37) {inputs.left = false;}
-			else if(e.getKeyCode() == 38) {inputs.up = false;}
-			else if(e.getKeyCode() == 39) {inputs.right = false;}			
+			switch(e.getKeyCode()) 
+			{ 
+				case KeyEvent.VK_UP:
+					inputs.up = false;
+					break;
+				case KeyEvent.VK_DOWN: 
+					break;
+				case KeyEvent.VK_LEFT:
+					inputs.left = false;
+					break;
+				case KeyEvent.VK_RIGHT :
+					inputs.right = false;
+					break;
+			}			
 		}
 		
 	}
@@ -112,7 +134,7 @@ public class Client{
 				for(CRec crec : recsToRender)
 				{
 					if(crec == null){continue;}
-					g.fillOval(crec.x + cwidth/2, cheight/2 - crec.y, crec.w, crec.h); 
+					g.fillOval(crec.x + cwidth/2, cheight/2 - crec.y - crec.h, crec.w, crec.h); 
 				}
 			}
 		} 
