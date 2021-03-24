@@ -29,7 +29,7 @@ public class GameObjectFactory
 			Player p = new Player();
 			
 			p.bounds.x = 5f;
-			p.bounds.y = 7f;
+			p.bounds.y = 15f;
 			
 			return p;
 		}

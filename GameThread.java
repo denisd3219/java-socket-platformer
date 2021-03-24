@@ -16,7 +16,7 @@ public class GameThread implements Runnable
 	public GameStorage storage;
 	
 	public boolean running = true;
-	final int TARGET_UPS = 20;
+	final int TARGET_UPS = 10;
 	final long UPS = 1000000000 / TARGET_UPS;
 	long lastLoopTime = System.nanoTime();
 	

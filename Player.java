@@ -4,6 +4,8 @@ import game.shared.CRec;
 import game.shared.PlayerInputs;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.lang.Math;
 
 public class Player implements GameObject
 {
@@ -12,8 +14,9 @@ public class Player implements GameObject
 	public Vec2<Float> bounds;
 	public Vec2<Float> vel;
 	
-	float walkSpeed = 1f;
-	float gravity = 0f;
+	float walkSpeed = 10f;
+	float jumpPower = 80f;
+	float gravity = 0.1f;
 	
 	public ClientThread playerClient;
 	public ArrayList<GameObject> otherObjectsRef;
@@ -49,54 +52,57 @@ public class Player implements GameObject
 	{
 		if(otherObjectsRef == null){return;}
 
-		float minDistanceToDense = 9999f;
+		float minDistanceToPlatform = 0f;
 
-		GameObjectFilter platform = new PlatformFilter();
+		List<GameObject> platforms = new PlatformFilter().filter(otherObjectsRef);
 
-		for(GameObject p : platform.filter(otherObjectsRef))
+		if(platforms.size() != 0)
 		{
-			if(checkHorizontalCollision(p))
+			GameObject first = platforms.get(0);
+			minDistanceToPlatform = pos.y - (first.getBounds().y + first.getPos().y);
+			for(GameObject p : platforms)
 			{
-				Vec2<Float> otherPos = p.getPos();
-				Vec2<Float> otherBounds = p.getBounds();
-				if(pos.y >= otherPos.y + otherBounds.y)
+				if(checkHorizontalCollision(p))
 				{
-					minDistanceToDense = pos.y - otherPos.y + otherBounds.y;
+					Vec2<Float> otherPos = p.getPos();
+					Vec2<Float> otherBounds = p.getBounds();
+					if(pos.y < otherPos.y + otherBounds.y) {
+						minDistanceToPlatform = Math.min(minDistanceToPlatform, pos.y - (otherPos.y + otherBounds.y));
+					}
 				}
 			}
 		}
+		
+		System.out.println(minDistanceToPlatform);
 		
 		if(playerClient != null)
 		{
 			PlayerInputs in = playerClient.inputs;
 
-			float walkMod = ((in.right ? 1f : 0f) - (in.left ? 1f : 0f));
+			float walkMod = (in.right ? 1f : 0f) - (in.left ? 1f : 0f);
 
-			vel.x = walkSpeed * walkMod * (float)dt;
+			vel.x = walkSpeed * walkMod;
 				
-			if(minDistanceToDense == 0)
+			if(minDistanceToPlatform == 0f)
 			{
-				vel.y += 10*(in.up ? 1 : 0);
+				vel.y += jumpPower * (in.up ? 1f : 0f);
 			}				
 		}
 			
-		if(minDistanceToDense != 0)
+		if(minDistanceToPlatform != 0f)
 		{
-			if(gravity != 0)
+			if(gravity != 0f)
 			{
 				vel.y -= gravity;
 			}
-			if(vel.y > minDistanceToDense)
+			if(-vel.y * (float)dt >= minDistanceToPlatform)
 			{
-				vel.y = minDistanceToDense;
+				vel.y = 0f;
+				pos.y -= minDistanceToPlatform;
 			}
 		}
-		else
-		{
-			vel.y = 0f;
-		}
 		
-		pos.x += vel.x;
-		pos.y += vel.y;
+		pos.x += vel.x * (float)dt;
+		pos.y += vel.y * (float)dt;
 	}
 }
