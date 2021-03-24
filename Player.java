@@ -15,7 +15,7 @@ public class Player implements GameObject
 	float walkSpeed = 1f;
 	float gravity = 0f;
 	
-	public PlayerInputs inputsRef;
+	public ClientThread playerClient;
 	public ArrayList<GameObject> otherObjectsRef;
 	
 	public Player()
@@ -65,37 +65,37 @@ public class Player implements GameObject
 				}
 			}
 		}
-		/*
-		if(inputsRef != null && false)
+		
+		if(playerClient != null)
 		{
-			float walkMod = ((inputsRef.right ? 1f : 0f) - (inputsRef.left ? 1f : 0f));
-			velX = walkSpeed * walkMod * (float)dt;
+			PlayerInputs in = playerClient.inputs;
+
+			float walkMod = ((in.right ? 1f : 0f) - (in.left ? 1f : 0f));
+
+			vel.x = walkSpeed * walkMod * (float)dt;
 				
 			if(minDistanceToDense == 0)
 			{
-				velY += 10*(inputsRef.up ? 1 : 0);
+				vel.y += 10*(in.up ? 1 : 0);
 			}				
 		}
-		
-		
 			
 		if(minDistanceToDense != 0)
 		{
 			if(gravity != 0)
 			{
-				velY -= gravity;
+				vel.y -= gravity;
 			}
-			if(velY > minDistanceToDense)
+			if(vel.y > minDistanceToDense)
 			{
-				velY = minDistanceToDense;
+				vel.y = minDistanceToDense;
 			}
 		}
 		else
 		{
-			velY = 0;
+			vel.y = 0f;
 		}
-		*/
-		vel.x = walkSpeed * (float)dt;
+		
 		pos.x += vel.x;
 		pos.y += vel.y;
 	}

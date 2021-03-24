@@ -81,7 +81,7 @@ public class GameThread implements Runnable
 		ClientThread pc = new ClientThread(socket);
 		
 		Player p = (Player)factory.createObject("player");
-		p.inputsRef = pc.inputs;
+		p.playerClient = pc;
 			
 		storage.registerObject(p);
 		storage.registerClient(pc);
