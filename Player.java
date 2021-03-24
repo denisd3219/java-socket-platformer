@@ -47,16 +47,18 @@ public class Player implements GameObject
 	
 	public void update(double dt)
 	{
+		if(otherObjectsRef == null){return;}
+
 		float minDistanceToDense = 9999f;
 
-		if(otherObjectsRef == null){return;}
-		
-		for(GameObject o : otherObjectsRef)
+		GameObjectFilter platform = new PlatformFilter();
+
+		for(GameObject p : platform.filter(otherObjectsRef))
 		{
-			if(o != null && o instanceof Platform && checkHorizontalCollision(o))
+			if(checkHorizontalCollision(p))
 			{
-				Vec2<Float> otherPos = o.getPos();
-				Vec2<Float> otherBounds = o.getBounds();
+				Vec2<Float> otherPos = p.getPos();
+				Vec2<Float> otherBounds = p.getBounds();
 				if(pos.y >= otherPos.y + otherBounds.y)
 				{
 					minDistanceToDense = pos.y - otherPos.y + otherBounds.y;
@@ -96,7 +98,5 @@ public class Player implements GameObject
 		vel.x = walkSpeed * (float)dt;
 		pos.x += vel.x;
 		pos.y += vel.y;
-		
-		System.out.println(pos.x);
 	}
 }
