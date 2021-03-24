@@ -73,8 +73,6 @@ public class Player implements GameObject
 			}
 		}
 		
-		System.out.println(minDistanceToPlatform);
-		
 		if(playerClient != null)
 		{
 			PlayerInputs in = playerClient.inputs;
