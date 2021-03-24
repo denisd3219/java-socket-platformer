@@ -82,12 +82,9 @@ public class GameThread implements Runnable
 		
 		Player p = (Player)factory.createObject("player");
 		p.inputsRef = pc.inputs;
-		
-		
+			
 		storage.registerObject(p);
 		storage.registerClient(pc);
-		
-		System.out.println(storage.clients);
 		
 		return pc;
 	}
