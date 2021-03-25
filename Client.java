@@ -133,7 +133,7 @@ public class Client{
 				for(CRec crec : recsToRender)
 				{
 					if(crec == null){continue;}
-					g.setColor(new Color(crec.r, crec.g, crec.b));
+					g.setColor(new Color(crec.c));
 					g.fillRect(crec.x + cwidth/2, cheight/2 - crec.y - crec.h, crec.w, crec.h); 
 				}
 			}

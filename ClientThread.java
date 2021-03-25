@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.InetSocketAddress;
 
 import game.shared.PlayerInputs;
 
@@ -57,6 +58,11 @@ public class ClientThread implements Runnable
 		public ObjectOutputStream getOutStream()
 		{
 			return gameDataOut;
+		}
+
+		public int getColor()
+		{
+			return ((InetSocketAddress)socket.getRemoteSocketAddress()).getAddress().toString().hashCode();
 		}
 	
 	}

@@ -82,6 +82,7 @@ public class GameThread implements Runnable
 		Player p = new Player(new Vec2<Float>(0f,0f), new Vec2<Float>(5f,15f));
 
 		p.playerClient = pc;
+		p.intRec.c = pc.getColor();
 			
 		storage.registerObject(p);
 		storage.registerClient(pc);

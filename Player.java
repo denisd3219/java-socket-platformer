@@ -45,7 +45,6 @@ public class Player implements GameObject
 	private void setup()
 	{
 		intRec = new CRec();
-		intRec.r = 255;
 		vel = new Vec2(0f, 0f);
 	}
 	

@@ -4,7 +4,7 @@ import java.io.Serializable;
 	
 public class CRec implements Serializable
 {
-	public int x, y, w, h, r, g, b;
+	public int x, y, w, h, c;
 	
 	public CRec()
 	{
@@ -12,9 +12,7 @@ public class CRec implements Serializable
 		this.y = 0;
 		this.w = 1;
 		this.h = 1;
-		this.r = 0;
-		this.g = 0;
-		this.b = 0;
+		this.c = 0;
 	}
 	
 	public CRec(int x, int y, int w, int h)
@@ -23,8 +21,6 @@ public class CRec implements Serializable
 		this.y = y;
 		this.w = w;
 		this.h = h;
-		this.r = 0;
-		this.g = 0;
-		this.b = 0;
+		this.c = 0;
 	}
 }
