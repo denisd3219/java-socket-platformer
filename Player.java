@@ -23,10 +23,29 @@ public class Player implements GameObject
 	
 	public Player()
 	{
-		intRec = new CRec();
-		intRec.r = 255;
+		setup();
 		pos = new Vec2(0f, 0f);
 		bounds = new Vec2(1f, 1f);
+	}
+
+	public Player(Vec2<Float> pos)
+	{
+		setup();
+		this.pos = pos;
+		bounds = new Vec2(1f, 1f);
+	}
+
+	public Player(Vec2<Float> pos, Vec2<Float> bounds)
+	{
+		setup();
+		this.pos = pos;
+		this.bounds = bounds;	
+	}
+
+	private void setup()
+	{
+		intRec = new CRec();
+		intRec.r = 255;
 		vel = new Vec2(0f, 0f);
 	}
 	

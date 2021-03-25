@@ -42,11 +42,11 @@ public class GameThread implements Runnable
 	
 	private void setup()
 	{
-		factory = new GameObjectFactory();
 		storage = new GameStorage();
 		
-		storage.registerObject(factory.createObject("platform"));
-		
+		storage.registerObject(new Platform(new Vec2<Float>(-10f,-5f), new Vec2<Float>(20f,3f)));
+		storage.registerObject(new Platform(new Vec2<Float>(-65f,5f), new Vec2<Float>(20f,3f)));
+		storage.registerObject(new Platform(new Vec2<Float>(-30f,30f), new Vec2<Float>(20f,3f)));
 	}
 	
 	private void update(double dt)
@@ -79,8 +79,8 @@ public class GameThread implements Runnable
 	public ClientThread connectClient(Socket socket)
 	{
 		ClientThread pc = new ClientThread(socket);
-		
-		Player p = (Player)factory.createObject("player");
+		Player p = new Player(new Vec2<Float>(0f,0f), new Vec2<Float>(5f,15f));
+
 		p.playerClient = pc;
 			
 		storage.registerObject(p);
