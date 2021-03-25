@@ -99,7 +99,7 @@ public class Player implements GameObject
 
 			vel.x = walkSpeed * walkMod;
 				
-			if(minDistanceToPlatform < 1f)
+			if(minDistanceToPlatform < 1f && vel.y == 0)
 			{
 				vel.y = jumpPower * (in.up ? 1f : 0f);
 			}				
