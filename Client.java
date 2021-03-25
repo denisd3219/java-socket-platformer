@@ -117,7 +117,10 @@ public class Client{
 				inputOut.reset();
 				inputOut.writeObject(inputs);
 				
-				recsToRender = (ArrayList<CRec>)gameDataIn.readObject();
+				if(gameDataIn.available() < 2)
+				{
+					recsToRender = (ArrayList<CRec>)gameDataIn.readObject();	
+				} 
 				
 				if(recsToRender == null){continue;}
 				
