@@ -24,6 +24,7 @@ public class Player implements GameObject
 	public Player()
 	{
 		intRec = new CRec();
+		intRec.r = 255;
 		pos = new Vec2(0f, 0f);
 		bounds = new Vec2(1f, 1f);
 		vel = new Vec2(0f, 0f);

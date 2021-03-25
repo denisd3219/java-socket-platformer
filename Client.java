@@ -52,7 +52,7 @@ public class Client{
 				} 
 			}; 
 	  
-			c.setBackground(Color.gray); 
+			c.setBackground(Color.white); 
 	  
 			c.addKeyListener(this); 
 	  
@@ -129,12 +129,12 @@ public class Client{
 				if(recsToRender == null){continue;}
 				
 				Graphics g = gc.c.getGraphics(); 
-				g.setColor(Color.red);
 				g.clearRect(0,0,cwidth,cheight);
 				for(CRec crec : recsToRender)
 				{
 					if(crec == null){continue;}
-					g.fillOval(crec.x + cwidth/2, cheight/2 - crec.y - crec.h, crec.w, crec.h); 
+					g.setColor(new Color(crec.r, crec.g, crec.b));
+					g.fillRect(crec.x + cwidth/2, cheight/2 - crec.y - crec.h, crec.w, crec.h); 
 				}
 			}
 		} 
