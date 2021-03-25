@@ -5,7 +5,6 @@ import game.shared.PlayerInputs;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 import java.io.IOException;
 import java.net.Socket;
 
@@ -60,12 +59,7 @@ public class Client{
 			setSize(cwidth, cheight); 
 			show(); 
 		} 
-		
-		/*
-		37 -- Left
-		38 -- Up
-		39 -- Right
-		*/
+
 		public void keyTyped(KeyEvent e){}
 		
 		public void keyPressed(KeyEvent e) 
@@ -105,7 +99,6 @@ public class Client{
 					break;
 			}			
 		}
-		
 	}
 	
 	private void run()
