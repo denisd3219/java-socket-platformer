@@ -119,5 +119,11 @@ public class Player implements GameObject
 		
 		pos.x += vel.x * (float)dt;
 		pos.y += vel.y * (float)dt;
+
+		if(pos.y < -120f)
+		{
+			pos.x = 0f;
+			pos.y = 0f;
+		}
 	}
 }

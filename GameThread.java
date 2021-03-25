@@ -47,6 +47,8 @@ public class GameThread implements Runnable
 		storage.registerObject(new Platform(new Vec2<Float>(-10f,-5f), new Vec2<Float>(20f,3f)));
 		storage.registerObject(new Platform(new Vec2<Float>(-65f,5f), new Vec2<Float>(20f,3f)));
 		storage.registerObject(new Platform(new Vec2<Float>(-30f,30f), new Vec2<Float>(20f,3f)));
+
+		storage.registerObject(new Platform(new Vec2<Float>(-100f,-50f), new Vec2<Float>(200f,5f)));
 	}
 	
 	private void update(double dt)
