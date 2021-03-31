@@ -14,9 +14,9 @@ public class Player implements GameObject
 	public Vec2<Float> bounds;
 	public Vec2<Float> vel;
 	
-	float walkSpeed = 10f;
-	float jumpPower = 30f;
-	float gravity = 0.01f;
+	float walkSpeed = 3f;
+	float jumpPower = 4f;
+	float gravity = 0.1f;
 	
 	public ClientThread playerClient;
 	public ArrayList<GameObject> otherObjectsRef;

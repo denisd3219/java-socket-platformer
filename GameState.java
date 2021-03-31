@@ -5,12 +5,12 @@ import game.shared.PlayerInputs;
 
 import java.util.ArrayList;
 
-public class GameStorage
+public class GameState
 {
 	public ArrayList<GameObject> objects;
 	public ArrayList<ClientThread> clients;
 	
-	GameStorage()
+	GameState()
 	{
 		objects = new ArrayList();
 		clients = new ArrayList();
@@ -29,6 +29,6 @@ public class GameStorage
 	
 	public void registerClient(ClientThread ct)
 	{
-		clients.add(ct);		
+		clients.add(ct);
 	}
 }

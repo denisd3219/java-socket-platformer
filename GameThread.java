@@ -13,10 +13,11 @@ import game.shared.PlayerInputs;
 public class GameThread implements Runnable 
 { 	
 	public GameObjectFactory factory;
-	public GameStorage storage;
+	public GameState state;
+	public BroadcasterThread broadcaster;
 	
 	public boolean running = true;
-	final int TARGET_UPS = 10;
+	final int TARGET_UPS = 30;
 	final long UPS = 1000000000 / TARGET_UPS;
 	long lastLoopTime = System.nanoTime();
 	
@@ -27,54 +28,39 @@ public class GameThread implements Runnable
 		while(running)
 		{
 			long now = System.nanoTime();
+			if(now < lastLoopTime + UPS){continue;}
 			long updateLength = now - lastLoopTime;
 			lastLoopTime = now;
 			double dt = updateLength / ((double)UPS);
 			
 			update(dt);
-			try
-			{
-				broadcast();
-			}
-			catch(Exception e){e.printStackTrace();} 
+			//broadcaster.setState(state);
 		}
 	}
 	
 	private void setup()
 	{
-		storage = new GameStorage();
-		
-		storage.registerObject(new Platform(new Vec2<Float>(-10f,-5f), new Vec2<Float>(20f,3f)));
-		storage.registerObject(new Platform(new Vec2<Float>(-65f,5f), new Vec2<Float>(20f,3f)));
-		storage.registerObject(new Platform(new Vec2<Float>(-30f,30f), new Vec2<Float>(20f,3f)));
+		state = new GameState();
 
-		storage.registerObject(new Platform(new Vec2<Float>(-100f,-50f), new Vec2<Float>(200f,5f)));
+		broadcaster = new BroadcasterThread();
+		broadcaster.state = state;
+
+		Thread bct = new Thread(broadcaster);
+		bct.start();
+
+		state.registerObject(new Platform(new Vec2<Float>(-10f,-5f), new Vec2<Float>(20f,3f)));
+		state.registerObject(new Platform(new Vec2<Float>(-65f,5f), new Vec2<Float>(20f,3f)));
+		state.registerObject(new Platform(new Vec2<Float>(-30f,30f), new Vec2<Float>(20f,3f)));
+
+		state.registerObject(new Platform(new Vec2<Float>(-100f,-50f), new Vec2<Float>(200f,5f)));
 	}
 	
 	private void update(double dt)
 	{
-		for(GameObject o : storage.objects)
+		for(GameObject o : state.objects)
 		{
 			if(o == null){continue;}
 			o.update(dt);
-		}
-	}
-	
-	private void broadcast() throws IOException
-	{
-		ArrayList<CRec> recsToSend = new ArrayList();
-		
-		for(GameObject o : storage.objects)
-		{
-			recsToSend.add(o.getDataToSend());
-		}
-		
-		for(ClientThread ct : storage.clients)
-		{
-			ObjectOutputStream out = ct.getOutStream();
-			if(out == null){continue;}
-			out.reset();
-			out.writeObject(recsToSend);
 		}
 	}
 	
@@ -86,8 +72,8 @@ public class GameThread implements Runnable
 		p.playerClient = pc;
 		p.intRec.c = pc.getColor();
 			
-		storage.registerObject(p);
-		storage.registerClient(pc);
+		state.registerObject(p);
+		state.registerClient(pc);
 		
 		return pc;
 	}
